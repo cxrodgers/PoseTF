@@ -2,7 +2,7 @@
 
 ## Preamble
 
-This is a fork of [@eldar's pose-tensorflow](https://github.com/eldar/pose-tensorflow) repository for tracking multiple body parts in images using the Human Body Pose Estimation algorithm. (It also works great for animal pose!)
+This is a fork of [@eldar's pose-tensorflow](https://github.com/eldar/pose-tensorflow) repository for tracking multiple body parts in images using the Human Body Pose Estimation algorithm. (It also works great for animal pose as demonstrated in [Mathis et al Nature Neuroscience](); also see their [code](https://github.com/AlexEMG/DeepLabCut) for labeling data and creating training sets, etc!)
 
 The purpose of this fork is to make the interface to the algorithm more modular and easier to integrate into a standard Python workflow.
 
