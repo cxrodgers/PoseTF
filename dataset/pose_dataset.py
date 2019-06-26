@@ -9,6 +9,7 @@ from numpy import concatenate as cat
 import scipy.io as sio
 from scipy.misc import imread, imresize
 
+import tables
 
 class Batch(Enum):
     inputs = 0
@@ -248,7 +249,14 @@ class PoseDataset:
         im_file = data_item.im_path
         logging.debug('image %s', im_file)
         logging.debug('mirror %r', mirror)
-        image = imread(im_file, mode='RGB')
+        #image = imread(im_file, mode='RGB')
+
+        # Split the im_file into a path to the hdf5 file, table name, and index
+        hdf5_path, table_name, n_image = im_file.split('^')
+        
+        # Load the image
+        with tables.open_file(hdf5_path) as fi:
+            image = fi.root[table_name][int(n_image)]
 
         if self.has_gt:
             joints = np.copy(data_item.joints)
