@@ -11,6 +11,7 @@ from scipy.misc import imread, imresize
 
 import tables
 
+
 class Batch(Enum):
     inputs = 0
     part_score_targets = 1
@@ -96,7 +97,7 @@ class PoseDataset:
         self.set_pairwise_stats_collect(cfg.pairwise_stats_collect)
         if self.cfg.pairwise_predict:
             self.pairwise_stats = load_pairwise_stats(self.cfg)
-
+        self.n_loaded_images = 0
 
     def load_dataset(self):
         cfg = self.cfg
@@ -252,6 +253,9 @@ class PoseDataset:
         #image = imread(im_file, mode='RGB')
 
         # Split the im_file into a path to the hdf5 file, table name, and index
+        self.n_loaded_images += 1
+        if np.mod(self.n_loaded_images, 1000) == 0:
+            print("loaded %d images so far" % self.n_loaded_images)
         hdf5_path, table_name, n_image = im_file.split('^')
         
         # Load the image
