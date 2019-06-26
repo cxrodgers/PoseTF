@@ -257,6 +257,9 @@ class PoseDataset:
         # Load the image
         with tables.open_file(hdf5_path) as fi:
             image = fi.root[table_name][int(n_image)]
+    
+        # RGB it
+        image = np.moveaxis(np.array([image] * 3), 0, -1)
 
         if self.has_gt:
             joints = np.copy(data_item.joints)
